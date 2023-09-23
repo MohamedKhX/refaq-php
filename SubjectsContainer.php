@@ -108,3 +108,5 @@ class SubjectsContainer
         }, 0);
     }
 }
+
+//The View

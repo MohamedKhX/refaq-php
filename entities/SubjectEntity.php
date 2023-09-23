@@ -1,6 +1,9 @@
 <?php
 
-class Subject
+namespace entities;
+use SubjectsContainer;
+
+class SubjectEntity extends Entity
 {
     public string $code;
     public string $name;
@@ -11,20 +14,6 @@ class Subject
     public int $requiredUnits;
 
     public ?SubjectsContainer $subjectsContainer;
-
-    public function __construct(string $code, string $name, string $root, int $units, bool $status, bool $allowed, int $requiredUnits = 0)
-    {
-        $this->code = $code;
-        $this->name = $name;
-        $this->root = $root;
-        $this->units = $units;
-        $this->status = $status;
-        $this->allowed = $allowed;
-        $this->requiredUnits = $requiredUnits;
-
-        $this->status = $this->getStatusFromURL();
-    }
-
 
     public function getStatusFromURL(): bool
     {
@@ -57,7 +46,7 @@ class Subject
         $nestedSubjects = $this->getNestedSubjects();
 
         foreach ($nestedSubjects as $nestedSubject) {
-            if($allowed === true) {
+            if ($allowed === true) {
                 $nestedSubject->setAllowed(true);
                 continue;
             }
@@ -80,7 +69,7 @@ class Subject
 
     public function hasNestedSubjects(): bool
     {
-        return (bool) array_filter($this->subjectsContainer->getSubjects(), function ($item) {
+        return (bool)array_filter($this->subjectsContainer->getSubjects(), function ($item) {
             return $item->root === $this->code;
         });
     }
@@ -99,5 +88,12 @@ class Subject
     public function setSubjectsContainer($subjectContainer): void
     {
         $this->subjectsContainer = $subjectContainer;
+    }
+
+    protected function setTableName(): static
+    {
+        $this->table_name = 'subjects';
+
+        return $this;
     }
 }
