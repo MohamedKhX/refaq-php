@@ -1,6 +1,7 @@
 <?php
 
-class SubjectsContainer
+namespace Logic;
+class SubjectsLogic
 {
     public array $subjects;
 
@@ -51,6 +52,13 @@ class SubjectsContainer
         }
     }
 
+    public function getSubjectsStatusFromDatabase(): void
+    {
+        foreach ($this->subjects as $subject) {
+            $subject->getStatusFromDatabase(true);
+        }
+    }
+
     public function getTotalSubjectsCount(): int
     {
         return count($this->subjects);
@@ -70,7 +78,7 @@ class SubjectsContainer
 
     public function getRemainingSubjectsCount(): int
     {
-         return array_reduce($this->subjects, function ($accumulator, $currentValue) {
+        return array_reduce($this->subjects, function ($accumulator, $currentValue) {
             if ($currentValue->status === true) {
                 return $accumulator + 0;
             }
@@ -108,5 +116,3 @@ class SubjectsContainer
         }, 0);
     }
 }
-
-//The View

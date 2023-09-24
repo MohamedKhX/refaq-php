@@ -1,7 +1,7 @@
 <?php
 
 namespace entities;
-use SubjectsContainer;
+use Logic\SubjectsLogic;
 
 class SubjectEntity extends Entity
 {
@@ -13,11 +13,26 @@ class SubjectEntity extends Entity
     public bool $allowed;
     public int $requiredUnits;
 
-    public ?SubjectsContainer $subjectsContainer;
+    public ?SubjectsLogic $subjectsContainer;
 
-    public function getStatusFromURL(): bool
+
+    public function getStatusFromDatabase(bool $onStatus): bool
     {
-        return array_key_exists($this->code, $_GET);
+        $user = UserEntity::findByKey('name', $_SESSION['user']);
+
+        $existingRecord = UserSubjectsEntity::findByKeys([
+            'user_id' => $user->id,
+            'subject_code' => $this->code
+        ]);
+
+        if ($existingRecord) {
+            $this->setStatus(true);
+            if ($onStatus) {
+                $this->onStatus();
+            }
+        }
+
+        return (bool) $existingRecord;
     }
 
     public function onStatus(): void
@@ -32,7 +47,6 @@ class SubjectEntity extends Entity
     public function checkRequiredUnits(): void
     {
         if ($this->requiredUnits <= 0) return;
-
         if ($this->requiredUnits <= $this->subjectsContainer->getCompletedUnits()) {
             $this->setAllowed(true);
         } else {
@@ -67,9 +81,16 @@ class SubjectEntity extends Entity
         });
     }
 
+    public function getNestedSubjectFromDatabase(): array
+    {
+        return array_filter(static::all(), function ($item) {
+            return $item->root === $this->code;
+        });
+    }
+
     public function hasNestedSubjects(): bool
     {
-        return (bool)array_filter($this->subjectsContainer->getSubjects(), function ($item) {
+        return (bool)array_filter(static::all(), function ($item) {
             return $item->root === $this->code;
         });
     }

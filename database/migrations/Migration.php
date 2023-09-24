@@ -12,9 +12,12 @@ abstract class Migration implements MigrationInterface
     public function __construct($database)
     {
         $this->database = $database;
+        $this->table_name = $this->setTableName();
 
         $this->create();
 
         $this->insertData();
     }
+
+    abstract protected function setTableName(): string;
 }

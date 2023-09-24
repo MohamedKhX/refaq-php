@@ -35,9 +35,7 @@ class Database
         try {
             $sql = "CREATE DATABASE IF NOT EXISTS {$databaseName}";
             $this->pdo->exec($sql);
-            echo 'Database created or already exists!';
         } catch (PDOException $e) {
-            echo 'Database creation failed: ' . $e->getMessage();
         }
 
         return $this;
@@ -68,9 +66,7 @@ class Database
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($values);
 
-            //echo 'Data inserted successfully!';
         } catch (PDOException $e) {
-            //echo 'Data insertion failed: ' . $e->getMessage();
         }
 
         return $this;

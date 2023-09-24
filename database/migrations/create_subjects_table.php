@@ -6,8 +6,14 @@ use database\Data;
 use database\migrations\interface\MigrationInterface;
 use mysql_xdevapi\Exception;
 
-class Create_subjects_table extends Migration
+class create_subjects_table extends Migration
 {
+
+    protected function setTableName(): string
+    {
+        return "subjects";
+    }
+
     public function create(): void
     {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->table_name} (
@@ -37,4 +43,5 @@ class Create_subjects_table extends Migration
 
         $this->database->exec($sql);
     }
+
 }
