@@ -4,12 +4,14 @@ use entities\SubjectEntity;
 use entities\UserEntity;
 use entities\UserSubjectsEntity;
 
-if($_SESSION['user']) {
+if(isset($_SESSION['user'])) {
     $user = UserEntity::findByKey('name', $_SESSION['user']);
 
     if(!$user) {
       App::redirectTo('auth');
     }
+} else {
+    App::redirectTo('auth');
 }
 
 
