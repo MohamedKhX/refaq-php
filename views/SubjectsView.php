@@ -22,26 +22,6 @@ if (isset($_POST['subjectCode']) && isset($_POST['subjectStatus'])) {
 
     if ($existingRecord) {
          UserSubjectsEntity::delete($existingRecord->id);
-
-         //Delete the nested Subjects
-
-        $nestedSubjects = SubjectEntity::findByKey('code',$existingRecord->subject_code);
-        $nestedSubjects = $nestedSubjects->getNestedSubjectFromDatabase();
-
-
-        foreach ($nestedSubjects as $nestedSubject) {
-            if ($nestedSubject->getStatusFromDatabase(false) === true) {
-                $nestedRecord = UserSubjectsEntity::findByKeys([
-                    'user_id' => $user->id,
-                    'subject_code' => $nestedSubject->code
-                ]);
-
-                if ($nestedRecord) {
-                    UserSubjectsEntity::delete($nestedRecord->id);
-                }
-            }
-        }
-
     } else {
         UserSubjectsEntity::create([
             'id' => UserSubjectsEntity::getLastId() + 1,
@@ -49,14 +29,16 @@ if (isset($_POST['subjectCode']) && isset($_POST['subjectStatus'])) {
             'subject_code' => $subjectCode
         ]);
     }
-
 }
 
 
 $subjects = SubjectEntity::all();
+
 $subjectsContainer = new \Logic\SubjectsLogic($subjects);
 $subjectsContainer->enableFirstSubjects();
-$subjectsContainer->getSubjectsStatusFromDatabase();
+$subjectsContainer->enableUsersSubjects();
+$subjectsContainer->checkSubjectsStatus();
+$subjectsContainer->checkRequiredUnits();
 
 ?>
 <!doctype html>
@@ -77,9 +59,9 @@ $subjectsContainer->getSubjectsStatusFromDatabase();
         <span>مرحبا</span>
         <span><?php echo $_SESSION['user'] ?></span>
     </div>
-    <span>
-        قسم علوم الحاسب
-    </span>
+    <a href="?auth">
+       تغيير الحساب
+    </a>
 </nav>
 <main class="px-5 md:px-20 lg:px-40 mt-5">
     <div class="alert bg-green-200 border border-green-500 text-green-700 p-3 rounded">

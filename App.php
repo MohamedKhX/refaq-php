@@ -9,7 +9,7 @@ class App
 {
     public array $databaseConnection = [
       'host' => 'localhost',
-      'port' => 3307,
+      'port' => 3306,
       'username' => 'root',
       'password' => 'root'
     ];
