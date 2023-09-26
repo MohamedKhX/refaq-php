@@ -1,8 +1,8 @@
 <?php
 
-namespace Logic;
+namespace src\Logic;
 
-use entities\UserEntity;
+use src\entities\UserEntity;
 
 class AuthLogic
 {
@@ -16,7 +16,7 @@ class AuthLogic
 
         $_SESSION['user'] = $name;
 
-        \App::redirectTo('subjects');
+        \src\app\App::redirectTo('subjects');
     }
 
     public static function createUser(string $name): ?UserEntity

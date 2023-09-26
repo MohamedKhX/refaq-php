@@ -1,8 +1,9 @@
 <?php
 
-use entities\SubjectEntity;
-use entities\UserEntity;
-use entities\UserSubjectsEntity;
+use src\app\App;
+use src\entities\SubjectEntity;
+use src\entities\UserEntity;
+use src\entities\UserSubjectsEntity;
 
 if(isset($_SESSION['user'])) {
     $user = UserEntity::findByKey('name', $_SESSION['user']);
@@ -40,7 +41,7 @@ if (isset($_POST['subjectCode']) && isset($_POST['subjectStatus'])) {
 
 $subjects = SubjectEntity::all();
 
-$subjectsContainer = new \Logic\SubjectsLogic($subjects);
+$subjectsContainer = new \src\Logic\SubjectsLogic($subjects);
 $subjectsContainer->enableFirstSubjects();
 $subjectsContainer->enableUsersSubjects();
 $subjectsContainer->checkSubjectsStatus();

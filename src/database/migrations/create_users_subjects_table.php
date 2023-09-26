@@ -1,6 +1,6 @@
 <?php
 
-namespace database\migrations;
+namespace src\database\migrations;
 
 class create_users_subjects_table extends Migration
 {

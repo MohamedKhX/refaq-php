@@ -1,17 +1,19 @@
 <?php
 
-use database\Database;
-use database\migrations\create_subjects_table;
-use database\migrations\create_users_subjects_table;
-use database\migrations\create_users_table;
+namespace src\app;
+
+use src\database\Database;
+use src\database\migrations\create_subjects_table;
+use src\database\migrations\create_users_subjects_table;
+use src\database\migrations\create_users_table;
 
 class App
 {
     public array $databaseConnection = [
-      'host' => 'localhost',
-      'port' => 3307,
-      'username' => 'root',
-      'password' => 'root'
+        'host' => 'localhost',
+        'port' => 3307,
+        'username' => 'root',
+        'password' => 'root'
     ];
 
     public string $databaseName = 'refaq_php';
@@ -34,8 +36,8 @@ class App
     public function routes(): array
     {
         return [
-          'subjects' => __DIR__ . '\views\SubjectsView.php',
-          'auth'     =>  __DIR__ . '\views\AuthView.php',
+            'subjects' => __DIR__ . '\..\views\SubjectsView.php',
+            'auth' => __DIR__ . '\..\views\AuthView.php',
         ];
     }
 
@@ -46,7 +48,7 @@ class App
 
         foreach ($routes as $route => $file) {
             if (str_contains($queryString, $route)) {
-               return require_once $file;
+                return require_once $file;
             }
         }
 
@@ -73,8 +75,8 @@ class App
 
     public function runMigrations(): void
     {
-        $subjectsMigration      = new create_subjects_table($this->database);
-        $usersMigration         = new create_users_table($this->database);
+        $subjectsMigration = new create_subjects_table($this->database);
+        $usersMigration = new create_users_table($this->database);
         $usersSubjectsMigration = new create_users_subjects_table($this->database);
     }
 

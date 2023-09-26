@@ -1,6 +1,6 @@
 <?php
 
-namespace database;
+namespace src\database;
 class Data
 {
     public static function getData(): array

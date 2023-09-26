@@ -1,0 +1,17 @@
+{
+    "name": "refaq/refaq",
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mohamed Khalid",
+            "email": "muhamedkhx2@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/collections": "^10.25"
+    }
+}

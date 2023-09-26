@@ -1,7 +1,7 @@
 <?php
 
     if (isset($_POST['name']) && $_POST['name'] != '') {
-        \Logic\AuthLogic::login($_POST['name']);
+        \src\Logic\AuthLogic::login($_POST['name']);
     }
 ?>
 

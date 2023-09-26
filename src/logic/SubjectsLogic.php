@@ -1,7 +1,7 @@
 <?php
 
-namespace Logic;
-use entities\SubjectEntity;
+namespace src\Logic;
+use src\entities\SubjectEntity;
 
 class SubjectsLogic
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace entities;
+namespace src\entities;
 
 use PDO;
 
@@ -22,7 +22,7 @@ abstract class Entity
 
         $query = "SELECT * FROM $table_name";
 
-        $pdo = \Container::getDatabase()->getPDO();
+        $pdo = \src\app\Container::getDatabase()->getPDO();
 
         $statement = $pdo->query($query);
         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -50,7 +50,7 @@ abstract class Entity
         // Prepare the query
         $query = "INSERT INTO $table_name ($columns) VALUES ($placeholders)";
 
-        $pdo = \Container::getDatabase()->getPDO();
+        $pdo = \src\app\Container::getDatabase()->getPDO();
 
         // Prepare and execute the statement
         $statement = $pdo->prepare($query);
@@ -71,7 +71,7 @@ abstract class Entity
         // Prepare the query
         $query = "DELETE FROM $table_name WHERE id = :id";
 
-        $pdo = \Container::getDatabase()->getPDO();
+        $pdo = \src\app\Container::getDatabase()->getPDO();
 
         // Prepare and execute the statement
         $statement = $pdo->prepare($query);
@@ -96,7 +96,7 @@ abstract class Entity
 
         $query = "UPDATE $table_name SET $set_values WHERE $where_clause";
 
-        $pdo = \Container::getDatabase()->getPDO();
+        $pdo = \src\app\Container::getDatabase()->getPDO();
         $statement = $pdo->prepare($query);
 
         // Bind the values for each column
@@ -117,7 +117,7 @@ abstract class Entity
 
         $query = "SELECT * FROM $table_name WHERE id = :id";
 
-        $pdo = \Container::getDatabase()->getPDO();
+        $pdo = \src\app\Container::getDatabase()->getPDO();
 
         $statement = $pdo->prepare($query);
         $statement->bindParam(':id', $id);
@@ -144,7 +144,7 @@ abstract class Entity
 
         $query = "SELECT * FROM $table_name WHERE $key = :$key";
 
-        $pdo = \Container::getDatabase()->getPDO();
+        $pdo = \src\app\Container::getDatabase()->getPDO();
         $statement = $pdo->prepare($query);
         $statement->bindParam(":$key", $value);
         $statement->execute();
@@ -162,7 +162,7 @@ abstract class Entity
 
         return $object;
     }
-
+    //Sofian
     public static function findByKeys(array $keys): ?self
     {
         $instance = new static();
@@ -178,7 +178,7 @@ abstract class Entity
 
         $query = "SELECT * FROM $table_name WHERE " . implode(' AND ', $conditions);
 
-        $pdo = \Container::getDatabase()->getPDO();
+        $pdo = \src\app\Container::getDatabase()->getPDO();
         $statement = $pdo->prepare($query);
         $statement->execute($bindings);
 
@@ -203,7 +203,7 @@ abstract class Entity
 
         $query = "SELECT MAX(id) AS last_id FROM $table_name";
 
-        $pdo = \Container::getDatabase()->getPDO();
+        $pdo = \src\app\Container::getDatabase()->getPDO();
         $statement = $pdo->prepare($query);
         $statement->execute();
 

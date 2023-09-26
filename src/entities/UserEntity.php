@@ -1,6 +1,6 @@
 <?php
 
-namespace entities;
+namespace src\entities;
 
 class UserEntity extends Entity
 {

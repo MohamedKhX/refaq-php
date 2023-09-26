@@ -1,10 +1,8 @@
 <?php
 
-namespace database\migrations;
+namespace src\database\migrations;
 
-use database\Data;
-use database\migrations\interface\MigrationInterface;
-use mysql_xdevapi\Exception;
+use src\database\Data;
 
 class create_subjects_table extends Migration
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace database\migrations;
+namespace src\database\migrations;
 
-use database\migrations\interface\MigrationInterface;
+use src\database\migrations\interface\MigrationInterface;
 
 abstract class Migration implements MigrationInterface
 {
-    public \database\Database $database;
+    public \src\database\Database $database;
     public string $table_name = 'subjects';
 
     public function __construct($database)

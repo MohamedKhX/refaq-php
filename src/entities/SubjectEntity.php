@@ -1,7 +1,6 @@
 <?php
 
-namespace entities;
-use Logic\SubjectsLogic;
+namespace src\entities;
 
 class SubjectEntity extends Entity
 {
